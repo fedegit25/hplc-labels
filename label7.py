@@ -8,17 +8,6 @@ import io
 import zipfile
 import os
 
-# ---------- GOOGLE SHEETS SETUP ----------
-# Load credentials from Streamlit Cloud secrets
-creds_dict = dict(st.secrets)  # works in Streamlit Cloud (flat keys only)
-def connect_to_gsheet(creds_dict, spreadsheet_name, sheet_name):
-    scope = ["https://spreadsheets.google.com/feeds",
-             'https://www.googleapis.com/auth/spreadsheets',
-             "https://www.googleapis.com/auth/drive.file",
-             "https://www.googleapis.com/auth/drive"]
-             
-
-
 st.set_page_config(page_title="HPLC Sample Name Generator", layout="centered")
 
 st.title("🔬 HPLC Sample Name Generator with Scannable Barcodes")
