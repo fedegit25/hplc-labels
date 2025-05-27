@@ -8,9 +8,34 @@ import io
 import zipfile
 import os
 
-st.set_page_config(page_title="HPLC Sample Name Generator", layout="centered")
+# ---------- GOOGLE SHEETS SETUP ----------
+# Load credentials from Streamlit Cloud secrets
+creds_dict = dict(st.secrets)  # works in Streamlit Cloud (flat keys only)
+def connect_to_gsheet(creds_dict, spreadsheet_name, sheet_name):
+    scope = ["https://spreadsheets.google.com/feeds",
+             'https://www.googleapis.com/auth/spreadsheets',
+             "https://www.googleapis.com/auth/drive.file",
+             "https://www.googleapis.com/auth/drive"]
+             
 
-st.title("🔬 HPLC Sample Name Generator with Scannable Barcodes")
+
+# Create authorized gspread client
+SPREADSHEET_NAME = 'Mysamplecodes'
+SHEET_NAME = 'Sheet1'
+
+creds = Credentials.from_service_account_info(creds_dict, scopes=["https://www.googleapis.com/auth/spreadsheets"])
+client = gspread.authorize(creds)
+spreadsheet = client.open(SPREADSHEET_NAME)  
+
+# Open Google Sheet
+
+
+sheet_by_name = connect_to_gsheet(creds, SPREADSHEET_NAME, sheet_name=SHEET_NAME) 
+
+
+st.set_page_config(page_title="🔬 HPLC Sample Name Generator with Scannable Barcodes", layout="centered")
+
+
 
 # --- Initialize session state ---
 if "names" not in st.session_state:
